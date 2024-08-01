@@ -28,4 +28,4 @@ jobs:
           git rebase FETCH_HEAD
 
       - name: Push changes
-        run: git push origin master
+        run: git push --force-with-lease origin master
