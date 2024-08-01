@@ -1,6 +1,6 @@
 name: Rebase Master
 
-on: workflow_dispatch
+on: push
 
 permissions:
   contents: write
@@ -19,10 +19,13 @@ jobs:
         run: git remote add upstream https://github.com/nestjs/nest.git
 
       - name: Fetch upstream
-        run: git fetch upstream --shallow-since="1 week ago"
+        run: git fetch upstream master --shallow-since="1 week ago"
 
       - name: Rebase master
-        run: git rebase upstream/master
+        run: |
+          git config --global user.email rebase-bot@appmap.io
+          git config --global user.name "AppMap rebase bot"
+          git rebase FETCH_HEAD
 
       - name: Push changes
         run: git push origin master
