@@ -11,12 +11,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 8
 
       - name: Add upstream remote
         run: git remote add upstream https://github.com/nestjs/nest.git
 
       - name: Fetch upstream
-        run: git fetch upstream
+        run: git fetch upstream --shallow-since="1 week ago"
 
       - name: Rebase master
         run: git rebase upstream/master
